@@ -1,9 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { encrypt } from '@/lib/encryption';
+import axios from 'axios';
 
 interface ClientConfig {
   httpsAppUrl: string;
+  msisdnApiUrl: string;
+  rsaPublicKey: string;
 }
 
 export default function LandingPage() {
@@ -31,18 +35,25 @@ export default function LandingPage() {
         const configResponse = await fetch('/api/config');
         const config: ClientConfig = await configResponse.json();
         
-        // Fetch encrypted MSISDN from our API route
-        const msisdnResponse = await fetch('/api/msisdn');
-        const result = await msisdnResponse.json();
+        // Fetch MSISDN directly from the endpoint
+        const msisdnResponse = await axios.get(config.msisdnApiUrl, {
+          timeout: 10000,
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
         
-        if (!result.success || !result.data) {
+        if (!msisdnResponse.data || !msisdnResponse.data.success || !msisdnResponse.data.data) {
           // Redirect without MSISDN if fetch fails
           redirectToApp(id, null, config.httpsAppUrl);
           return;
         }
         
+        // Encrypt MSISDN on the client side using the public key
+        const encryptedMsisdn = encrypt(msisdnResponse.data.data, config.rsaPublicKey);
+        
         // Redirect with encrypted MSISDN
-        redirectToApp(id, result.data, config.httpsAppUrl);
+        redirectToApp(id, encryptedMsisdn, config.httpsAppUrl);
       } catch (err) {
         console.error('Error in fetchAndRedirect:', err);
         // Redirect without MSISDN on error

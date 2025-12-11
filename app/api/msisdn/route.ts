@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchMsisdn } from '@/lib/msisdnService';
 import { encrypt } from '@/lib/encryption';
+import { config } from '@/lib/config';
 
 export async function GET() {
   try {
@@ -14,7 +15,7 @@ export async function GET() {
     }
     
     // Encrypt MSISDN using RSA public key
-    const encryptedMsisdn = encrypt(result.data);
+    const encryptedMsisdn = encrypt(result.data, config.rsaPublicKey);
     
     return NextResponse.json({
       success: true,

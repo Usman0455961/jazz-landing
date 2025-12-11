@@ -1,15 +1,13 @@
 import forge from 'node-forge';
-import { config } from './config';
 
 /**
  * Encrypts a string using RSA public key encryption
  * @param text - The text to encrypt
+ * @param publicKeyPem - The RSA public key in PEM format
  * @returns The encrypted text as a base64 string
  */
-export function encrypt(text: string): string {
+export function encrypt(text: string, publicKeyPem: string): string {
   try {
-    const publicKeyPem = config.rsaPublicKey;
-    
     if (!publicKeyPem) {
       throw new Error('RSA public key not configured');
     }
