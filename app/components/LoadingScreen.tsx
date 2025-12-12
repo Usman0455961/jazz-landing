@@ -1,16 +1,20 @@
+import Image from 'next/image';
+
 export default function LoadingScreen() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="flex flex-col items-center space-y-6 animate-fade">
+      <div className="flex flex-col items-center space-y-6">
         {/* Jazz Logo */}
-        <img
+        <Image
           src="/jazz-logo.webp"
           alt="Jazz Logo"
-          className="w-24 h-12 object-contain"
+          width={160}
+          height={80}
+          className="object-contain animate-fade"
         />
         
         {/* Verifying text */}
-        <p className="text-gray-700 text-lg font-medium animate-pulse">
+        <p className="text-gray-700 text-lg font-medium">
           Verifying
         </p>
       </div>
