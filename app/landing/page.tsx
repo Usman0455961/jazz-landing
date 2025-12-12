@@ -74,7 +74,7 @@ export default function LandingPage() {
         console.error('Error in fetchAndRedirect:', err);
         // Redirect without MSISDN on error
         // Fallback to default URL if config fetch failed
-        redirectToApp(id, null, null, 'https://localhost:3000');
+        redirectToApp(id, null, null, "https://jazzred-cms-stg.jazz.com.pk");
       }
     };
     
