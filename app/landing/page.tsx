@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import LoadingScreen from './components/LoadingScreen';
+import LoadingScreen from '../components/LoadingScreen';
 
 interface ClientConfig {
   httpsAppUrl: string;
