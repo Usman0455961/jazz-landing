@@ -97,7 +97,7 @@ export default function LandingPage() {
     }
     
     console.log('🚀 Redirecting to:', url.toString());
-    window.location.href = url.toString();
+    // window.location.href = url.toString();
   };
 
   if (error) {
