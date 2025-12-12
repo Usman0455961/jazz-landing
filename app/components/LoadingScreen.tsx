@@ -6,7 +6,7 @@ export default function LoadingScreen() {
         <img
           src="/jazz-logo.webp"
           alt="Jazz Logo"
-          className="w-32 h-16 object-contain"
+          className="w-24 h-12 object-contain"
         />
         
         {/* Verifying text */}
